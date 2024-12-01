@@ -1,28 +1,52 @@
 package org.champsoft.likeaholicbackend.businessLogicLayer;
 
-import org.champsoft.likeaholicbackend.businessLogicLayer.PostService;
 import org.champsoft.likeaholicbackend.dataAccessLayer.Post;
 import org.champsoft.likeaholicbackend.dataAccessLayer.PostRepository;
 import org.champsoft.likeaholicbackend.dataAccessLayer.User;
-import org.champsoft.likeaholicbackend.dataMapperLayer.PostRequestMapper;
+import org.champsoft.likeaholicbackend.dataAccessLayer.UserRepository;
 import org.champsoft.likeaholicbackend.dataMapperLayer.PostResponseMapper;
 import org.champsoft.likeaholicbackend.presentationLayer.posts.PostRequestModel;
 import org.champsoft.likeaholicbackend.presentationLayer.posts.PostResponseModel;
-import org.champsoft.likeaholicbackend.presentationLayer.users.UserResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
+    @Autowired private UserRepository userRepository;
+    @Autowired
+    PostResponseMapper postResponseMapper;
+
 
     @Override
-    public Post createPost(Post post) {
-        return postRepository.save(post);
+    public PostResponseModel createPost(PostRequestModel postRequestModel) {
+        // Fetch the User entity
+        User user = userRepository.findById(postRequestModel.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + postRequestModel.getUserId()));
+
+        // Map the PostRequestModel to a Post entity
+        Post post = new Post();
+        post.setUser(user);
+        post.setContent(postRequestModel.getContent());
+        post.setImageUrl(postRequestModel.getImageUrl());
+
+        // Generate a unique postId
+//        post.setPostId(String.valueOf(System.currentTimeMillis())); // Use current time for uniqueness
+        post.setPostId(UUID.randomUUID().toString()); // Use UUID for uniqueness
+
+
+        // Save the Post entity
+        postRepository.save(post);
+
+        // Map the saved Post entity to a PostResponseModel and return it
+        return postResponseMapper.entityToResponseModel(post);
     }
+
+
 
     @Override
     public Post updatePost(Long id, Post post) {

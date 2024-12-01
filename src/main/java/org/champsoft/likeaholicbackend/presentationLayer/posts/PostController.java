@@ -16,8 +16,8 @@ public class PostController {
     private PostService postService;
 
     @PostMapping
-    public Post createPost(@RequestBody Post post) {
-        return postService.createPost(post);
+    public PostResponseModel createPost(@RequestBody PostRequestModel postRequestModel) {
+        return postService.createPost(postRequestModel);
     }
 
     @PutMapping("/{id}")

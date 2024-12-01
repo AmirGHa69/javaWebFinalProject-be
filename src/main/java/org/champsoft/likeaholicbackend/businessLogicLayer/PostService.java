@@ -7,7 +7,10 @@ import org.champsoft.likeaholicbackend.presentationLayer.posts.PostResponseModel
 import java.util.List;
 
 public interface PostService {
-    Post createPost(Post post);
+//    Post createPost(Post post);
+
+    PostResponseModel createPost(PostRequestModel postRequestModel);
+
     Post updatePost(Long id, Post post);
     void deletePost(Long id);
     List<Post> getPostsByUserId(Long userId);

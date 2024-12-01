@@ -1,14 +1,9 @@
 package org.champsoft.likeaholicbackend.businessLogicLayer;
 
-import org.champsoft.likeaholicbackend.businessLogicLayer.CommentService;
-import org.champsoft.likeaholicbackend.dataAccessLayer.Comment;
-import org.champsoft.likeaholicbackend.dataAccessLayer.CommentRepository;
-import org.champsoft.likeaholicbackend.dataAccessLayer.User;
-import org.champsoft.likeaholicbackend.dataMapperLayer.CommentRequestMapper;
+import org.champsoft.likeaholicbackend.dataAccessLayer.*;
 import org.champsoft.likeaholicbackend.dataMapperLayer.CommentResponseMapper;
 import org.champsoft.likeaholicbackend.presentationLayer.comments.CommentRequestModel;
 import org.champsoft.likeaholicbackend.presentationLayer.comments.CommentResponseModel;
-import org.champsoft.likeaholicbackend.presentationLayer.users.UserResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +14,37 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired private PostRepository postRepository;
+    @Autowired private UserRepository userRepository;
+    @Autowired private CommentResponseMapper commentResponseMapper;
+
     @Override
-    public Comment addComment(Comment comment) {
-        return commentRepository.save(comment);
+    public CommentResponseModel addComment(CommentRequestModel commentRequestModel) {
+        // Fetch the User entity
+        User user = userRepository.findById(commentRequestModel.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + commentRequestModel.getUserId()));
+
+        // Fetch the Post entity
+        Post post = postRepository.findById(commentRequestModel.getPostId())
+                .orElseThrow(() -> new RuntimeException("Post not found with ID: " + commentRequestModel.getPostId()));
+
+        // Map the CommentRequestModel to a Comment entity
+        Comment comment = new Comment();
+        comment.setUser(user);
+        comment.setPost(post);
+        comment.setContent(commentRequestModel.getContent());
+
+        // Generate a unique commentId
+        comment.setCommentId(System.currentTimeMillis()); // Use current time for uniqueness
+
+        // Save the Comment entity
+        commentRepository.save(comment);
+
+        // Map the saved Comment entity to a CommentResponseModel and return it
+        return commentResponseMapper.entityToResponseModel(comment);
     }
+
+
 
     @Override
     public Comment updateComment(Long id, Comment comment) {

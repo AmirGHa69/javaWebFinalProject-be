@@ -4,6 +4,8 @@ import org.champsoft.likeaholicbackend.dataAccessLayer.Like;
 import org.champsoft.likeaholicbackend.presentationLayer.likes.LikeRequestModel;
 import org.champsoft.likeaholicbackend.presentationLayer.likes.LikeResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +17,9 @@ public class LikeController {
     private LikeService likeService;
 
     @PostMapping
-    public Like addLike(@RequestBody Like like) {
-        return likeService.addLike(like);
+    public LikeResponseModel addLike(@RequestBody LikeRequestModel likeRequest) {
+
+        return likeService.addLike(likeRequest);
     }
 
     @DeleteMapping("/{id}")
