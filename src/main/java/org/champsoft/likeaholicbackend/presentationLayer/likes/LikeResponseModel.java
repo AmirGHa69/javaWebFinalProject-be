@@ -10,5 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LikeResponseModel {
-    private String timestamp;
+    private String userId;
+    private String userName;
 }

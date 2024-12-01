@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PostRequestModel {
-    private String postId;
-    private Long userId;
+
     private String content;
     private String imageUrl;
+    private Long userId;
 }

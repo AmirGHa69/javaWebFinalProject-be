@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LikeRequestModel {
-    private Long userId;
     private Long postId;
+    private Long userId;
+
 }

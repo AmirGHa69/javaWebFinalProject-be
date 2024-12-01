@@ -10,6 +10,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentResponseModel {
+
     private String content;
     private String timestamp;
+
+    public CommentResponseModel(String userId, String userName, String content) {
+    }
 }
