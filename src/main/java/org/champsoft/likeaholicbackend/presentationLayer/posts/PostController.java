@@ -25,6 +25,7 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public void deletePost(@PathVariable Long id) {
+        System.out.println("Long id in controller: " + id);
         postService.deletePost(id);
     }
 

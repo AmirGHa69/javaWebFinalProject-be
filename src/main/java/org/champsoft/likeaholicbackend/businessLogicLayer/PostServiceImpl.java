@@ -1,5 +1,6 @@
 package org.champsoft.likeaholicbackend.businessLogicLayer;
 
+import jakarta.transaction.Transactional;
 import org.champsoft.likeaholicbackend.dataAccessLayer.Post;
 import org.champsoft.likeaholicbackend.dataAccessLayer.PostRepository;
 import org.champsoft.likeaholicbackend.dataAccessLayer.User;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -59,6 +61,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePost(Long id) {
         postRepository.deleteById(id);
+
+
     }
 
     @Override
