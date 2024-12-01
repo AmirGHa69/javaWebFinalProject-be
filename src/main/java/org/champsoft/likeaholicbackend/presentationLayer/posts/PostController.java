@@ -2,8 +2,6 @@ package org.champsoft.likeaholicbackend.presentationLayer.posts;
 
 import org.champsoft.likeaholicbackend.businessLogicLayer.PostService;
 import org.champsoft.likeaholicbackend.dataAccessLayer.Post;
-import org.champsoft.likeaholicbackend.presentationLayer.posts.PostRequestModel;
-import org.champsoft.likeaholicbackend.presentationLayer.posts.PostResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

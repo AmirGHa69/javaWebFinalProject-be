@@ -2,8 +2,7 @@ package org.champsoft.likeaholicbackend.presentationLayer.comments;
 
 import org.champsoft.likeaholicbackend.businessLogicLayer.CommentService;
 import org.champsoft.likeaholicbackend.dataAccessLayer.Comment;
-import org.champsoft.likeaholicbackend.presentationLayer.comments.CommentRequestModel;
-import org.champsoft.likeaholicbackend.presentationLayer.comments.CommentResponseModel;
+;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

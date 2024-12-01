@@ -1,11 +1,7 @@
 package org.champsoft.likeaholicbackend.presentationLayer.likes;
 import org.champsoft.likeaholicbackend.businessLogicLayer.LikeService;
 import org.champsoft.likeaholicbackend.dataAccessLayer.Like;
-import org.champsoft.likeaholicbackend.presentationLayer.likes.LikeRequestModel;
-import org.champsoft.likeaholicbackend.presentationLayer.likes.LikeResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
