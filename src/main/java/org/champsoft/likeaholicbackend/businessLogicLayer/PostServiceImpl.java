@@ -1,10 +1,7 @@
 package org.champsoft.likeaholicbackend.businessLogicLayer;
 
 import jakarta.transaction.Transactional;
-import org.champsoft.likeaholicbackend.dataAccessLayer.Post;
-import org.champsoft.likeaholicbackend.dataAccessLayer.PostRepository;
-import org.champsoft.likeaholicbackend.dataAccessLayer.User;
-import org.champsoft.likeaholicbackend.dataAccessLayer.UserRepository;
+import org.champsoft.likeaholicbackend.dataAccessLayer.*;
 import org.champsoft.likeaholicbackend.dataMapperLayer.PostResponseMapper;
 import org.champsoft.likeaholicbackend.presentationLayer.posts.PostRequestModel;
 import org.champsoft.likeaholicbackend.presentationLayer.posts.PostResponseModel;
@@ -19,9 +16,19 @@ import java.util.UUID;
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
-    @Autowired private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     PostResponseMapper postResponseMapper;
+    @Autowired
+    LikeService likeService;
+    @Autowired
+    CommentService commentService;
+    @Autowired
+    LikeRepository likeRepository;
+    @Autowired
+    CommentRepository commentRepository;
+
 
 
     @Override
@@ -55,20 +62,42 @@ public class PostServiceImpl implements PostService {
         existingPost.setImageUrl(post.getImageUrl());
         return postRepository.save(existingPost);
     }
-
+    @Transactional
     @Override
     public String deletePost(String id) {
-
+        // Fetch the post to ensure it exists
         Post post = postRepository.findByPostId(id);
+        if (post == null) {
+            return "Post with ID " + id + " not found.";
+        }
+
         String postId = post.getPostId();
-        System.out.println(postId);
-        System.out.println(post.getContent());
-        this.postRepository.delete(post);
-//        postRepository.deleteById(id);
-        return ("Post: " + postId + " deleted");
+        System.out.println("Post to delete: " + postId);
+        System.out.println("Post content: " + post.getContent());
+
+        // Delete all likes associated with the post
+        List<Like> likes = likeService.getLikesByPostId(postId);
+        for (Like like : likes) {
+            System.out.println("Deleting Like with ID: " + like.getLikeId());
+            likeRepository.delete(like);
+        }
+
+        // Delete all comments associated with the post
+        List<Comment> comments = commentService.getCommentsByPostId(postId);
+        for (Comment comment : comments) {
+            System.out.println("Deleting Comment with ID: " + comment.getCommentId());
+            commentRepository.delete(comment);
+        }
+
+        // Finally, delete the post itself
+        System.out.println("Deleting Post with ID: " + post.getPostId());
+        postRepository.delete(post);
+        postRepository.flush();  // Ensure the transaction is flushed and changes are committed
 
 
+        return "Post deleted successfully";
     }
+
 
     @Override
     public List<Post> getPostsByUserId(String userId) {
