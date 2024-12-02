@@ -11,7 +11,7 @@ public interface PostService {
     PostResponseModel createPost(PostRequestModel postRequestModel);
 
     Post updatePost(Long id, Post post);
-    void deletePost(Long id);
+    String deletePost(Long id);
     List<Post> getPostsByUserId(Long userId);
     List<Post> getAllPosts();
 }
