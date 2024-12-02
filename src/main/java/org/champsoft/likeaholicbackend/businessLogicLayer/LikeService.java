@@ -7,9 +7,6 @@ import org.champsoft.likeaholicbackend.presentationLayer.likes.LikeResponseModel
 import java.util.List;
 
 public interface LikeService {
-//    Like addLike(Like like);
-//    void addLike(Long postId, Long userId);
-
 
     LikeResponseModel addLike(LikeRequestModel likeRequestModel);
 

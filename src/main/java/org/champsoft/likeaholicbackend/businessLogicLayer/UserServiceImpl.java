@@ -1,13 +1,9 @@
 package org.champsoft.likeaholicbackend.businessLogicLayer;
 
 import jakarta.transaction.Transactional;
-import org.champsoft.likeaholicbackend.businessLogicLayer.UserService;
 import org.champsoft.likeaholicbackend.dataAccessLayer.User;
 import org.champsoft.likeaholicbackend.dataAccessLayer.UserRepository;
-import org.champsoft.likeaholicbackend.dataMapperLayer.UserRequestMapper;
-import org.champsoft.likeaholicbackend.dataMapperLayer.UserResponseMapper;
-import org.champsoft.likeaholicbackend.presentationLayer.users.UserRequestModel;
-import org.champsoft.likeaholicbackend.presentationLayer.users.UserResponseModel;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

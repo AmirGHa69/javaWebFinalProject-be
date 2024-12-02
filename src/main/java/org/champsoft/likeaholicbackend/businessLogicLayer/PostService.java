@@ -7,7 +7,6 @@ import org.champsoft.likeaholicbackend.presentationLayer.posts.PostResponseModel
 import java.util.List;
 
 public interface PostService {
-//    Post createPost(Post post);
 
     PostResponseModel createPost(PostRequestModel postRequestModel);
 
