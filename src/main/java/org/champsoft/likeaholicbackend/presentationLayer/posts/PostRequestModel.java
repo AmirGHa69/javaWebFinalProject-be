@@ -13,5 +13,5 @@ public class PostRequestModel {
 
     private String content;
     private String imageUrl;
-    private Long userId;
+    private String userId;
 }

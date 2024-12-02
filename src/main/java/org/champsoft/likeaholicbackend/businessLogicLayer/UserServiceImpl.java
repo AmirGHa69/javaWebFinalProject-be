@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long id, User user) {
-        User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public User updateUser(String id, User user) {
+        User existingUser = userRepository.findByUserId(id);
         existingUser.setUserName(user.getUserName());
         existingUser.setUserEmail(user.getUserEmail());
         existingUser.setUserPassword(user.getUserPassword());
@@ -29,13 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void deleteUser(String id) {
+        userRepository.deleteByUserId(id);
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public User getUserById(String id) {
+        return userRepository.findByUserId(id);
     }
 
     @Override

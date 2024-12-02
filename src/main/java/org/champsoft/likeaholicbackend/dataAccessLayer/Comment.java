@@ -19,7 +19,7 @@ public class Comment {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private Long commentId;
+    private String commentId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

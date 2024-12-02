@@ -27,9 +27,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostResponseModel createPost(PostRequestModel postRequestModel) {
         // Fetch the User entity
-        User user = userRepository.findById(postRequestModel.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + postRequestModel.getUserId()));
-
+        User user = userRepository.findByUserId(postRequestModel.getUserId());
         // Map the PostRequestModel to a Post entity
         Post post = new Post();
         post.setUser(user);
@@ -51,17 +49,17 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public Post updatePost(Long id, Post post) {
-        Post existingPost = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+    public Post updatePost(String id, Post post) {
+        Post existingPost = postRepository.findByPostId(id);
         existingPost.setContent(post.getContent());
         existingPost.setImageUrl(post.getImageUrl());
         return postRepository.save(existingPost);
     }
 
     @Override
-    public String deletePost(Long id) {
+    public String deletePost(String id) {
 
-        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+        Post post = postRepository.findByPostId(id);
         String postId = post.getPostId();
         System.out.println(postId);
         System.out.println(post.getContent());
@@ -73,8 +71,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostsByUserId(Long userId) {
-        return postRepository.findByUserId(userId);
+    public List<Post> getPostsByUserId(String userId) {
+        return postRepository.findByUser_UserId(userId);
     }
 
     @Override

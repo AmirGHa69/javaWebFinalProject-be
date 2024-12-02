@@ -18,7 +18,7 @@ public class Like {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private Long likeId;
+    private String likeId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)

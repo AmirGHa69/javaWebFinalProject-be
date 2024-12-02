@@ -19,19 +19,19 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public Post updatePost(@PathVariable Long id, @RequestBody Post post) {
+    public Post updatePost(@PathVariable String id, @RequestBody Post post) {
         return postService.updatePost(id, post);
     }
 
     @DeleteMapping("/{id}")
-    public String deletePost(@PathVariable Long id) {
+    public String deletePost(@PathVariable String id) {
         System.out.println("Long id in controller: " + id);
         return postService.deletePost(id);
 
     }
 
     @GetMapping("/user/{userId}")
-    public List<Post> getPostsByUserId(@PathVariable Long userId) {
+    public List<Post> getPostsByUserId(@PathVariable String userId) {
         return postService.getPostsByUserId(userId);
     }
 

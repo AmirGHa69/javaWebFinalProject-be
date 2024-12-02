@@ -10,8 +10,8 @@ public interface LikeService {
 
     LikeResponseModel addLike(LikeRequestModel likeRequestModel);
 
-    void removeLike(Long id);
-    List<Like> getLikesByPostId(Long postId);
+    void removeLike(String id);
+    List<Like> getLikesByPostId(String postId);
     List<Like> getAllLikes();
 
 }

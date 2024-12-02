@@ -26,20 +26,16 @@ public class LikeServiceImpl implements LikeService {
     @Override
     public LikeResponseModel addLike(LikeRequestModel likeRequestModel) {
         // Fetch the User entity
-        User user = userRepository.findById(likeRequestModel.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + likeRequestModel.getUserId()));
-
+        User user = userRepository.findByUserId(likeRequestModel.getUserId());
         // Fetch the Post entity
-        Post post = postRepository.findById(likeRequestModel.getPostId())
-                .orElseThrow(() -> new RuntimeException("Post not found with ID: " + likeRequestModel.getPostId()));
-
+        Post post = postRepository.findByPostId(likeRequestModel.getPostId());
         // Map the LikeRequestModel to a Like entity
         Like like = new Like();
         like.setUser(user);
         like.setPost(post);
 
         // Set a non-null value for likeId
-        like.setLikeId(System.currentTimeMillis()); // Use current time for uniqueness
+        like.setLikeId(String.valueOf(System.currentTimeMillis())); // Use current time for uniqueness
 
         // Save the Like entity
         likeRepository.save(like);
@@ -52,13 +48,13 @@ public class LikeServiceImpl implements LikeService {
 
 
     @Override
-    public void removeLike(Long id) {
-        likeRepository.deleteById(id);
+    public void removeLike(String id) {
+        likeRepository.deleteByLikeId(id);
     }
 
     @Override
-    public List<Like> getLikesByPostId(Long postId) {
-        return likeRepository.findByPostId(postId);
+    public List<Like> getLikesByPostId(String postId) {
+        return likeRepository.findByPost_PostId(postId);
     }
 
     @Override

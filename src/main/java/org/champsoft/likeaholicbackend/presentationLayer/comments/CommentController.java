@@ -20,17 +20,17 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    public Comment updateComment(@PathVariable Long id, @RequestBody Comment comment) {
+    public Comment updateComment(@PathVariable String id, @RequestBody Comment comment) {
         return commentService.updateComment(id, comment);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteComment(@PathVariable Long id) {
+    public void deleteComment(@PathVariable String id) {
         commentService.deleteComment(id);
     }
 
     @GetMapping("/post/{postId}")
-    public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
+    public List<Comment> getCommentsByPostId(@PathVariable String postId) {
         return commentService.getCommentsByPostId(postId);
     }
 

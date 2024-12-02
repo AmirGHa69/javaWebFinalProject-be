@@ -10,8 +10,8 @@ public interface PostService {
 
     PostResponseModel createPost(PostRequestModel postRequestModel);
 
-    Post updatePost(Long id, Post post);
-    String deletePost(Long id);
-    List<Post> getPostsByUserId(Long userId);
+    Post updatePost(String id, Post post);
+    String deletePost(String id);
+    List<Post> getPostsByUserId(String userId);
     List<Post> getAllPosts();
 }

@@ -19,12 +19,12 @@ public class LikeController {
     }
 
     @DeleteMapping("/{id}")
-    public void removeLike(@PathVariable Long id) {
+    public void removeLike(@PathVariable String id) {
         likeService.removeLike(id);
     }
 
     @GetMapping("/post/{postId}")
-    public List<Like> getLikesByPostId(@PathVariable Long postId) {
+    public List<Like> getLikesByPostId(@PathVariable String postId) {
         return likeService.getLikesByPostId(postId);
     }
 

@@ -21,13 +21,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentResponseModel addComment(CommentRequestModel commentRequestModel) {
         // Fetch the User entity
-        User user = userRepository.findById(commentRequestModel.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + commentRequestModel.getUserId()));
-
+        User user = userRepository.findByUserId(commentRequestModel.getUserId());
         // Fetch the Post entity
-        Post post = postRepository.findById(commentRequestModel.getPostId())
-                .orElseThrow(() -> new RuntimeException("Post not found with ID: " + commentRequestModel.getPostId()));
-
+        Post post = postRepository.findByPostId(commentRequestModel.getPostId());
         // Map the CommentRequestModel to a Comment entity
         Comment comment = new Comment();
         comment.setUser(user);
@@ -35,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setContent(commentRequestModel.getContent());
 
         // Generate a unique commentId
-        comment.setCommentId(System.currentTimeMillis()); // Use current time for uniqueness
+        comment.setCommentId(String.valueOf(System.currentTimeMillis())); // Use current time for uniqueness
 
         // Save the Comment entity
         commentRepository.save(comment);
@@ -47,20 +43,20 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public Comment updateComment(Long id, Comment comment) {
-        Comment existingComment = commentRepository.findById(id).orElseThrow(() -> new RuntimeException("Comment not found"));
+    public Comment updateComment(String id, Comment comment) {
+        Comment existingComment = commentRepository.findByCommentId(id);
         existingComment.setContent(comment.getContent());
         return commentRepository.save(existingComment);
     }
 
     @Override
-    public void deleteComment(Long id) {
-        commentRepository.deleteById(id);
+    public void deleteComment(String id) {
+        commentRepository.deleteByCommentId(id);
     }
 
     @Override
-    public List<Comment> getCommentsByPostId(Long postId) {
-        return commentRepository.findByPostId(postId);
+    public List<Comment> getCommentsByPostId(String postId) {
+        return commentRepository.findByPost_PostId(postId);
     }
 
     @Override
