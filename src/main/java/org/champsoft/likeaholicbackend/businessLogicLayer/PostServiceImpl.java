@@ -64,32 +64,30 @@ public class PostServiceImpl implements PostService {
     }
     @Transactional
     @Override
-    public String deletePost(String id) {
+    public String deletePost(String postId) {
         // Fetch the post to ensure it exists
-        Post post = postRepository.findByPostId(id);
+        Post post = postRepository.findByPostId(postId);
         if (post == null) {
-            return "Post with ID " + id + " not found.";
+            return "Post with ID " + postId + " not found.";
         }
 
-        String postId = post.getPostId();
-        System.out.println("Post to delete: " + postId);
-        System.out.println("Post content: " + post.getContent());
+        postId = post.getPostId();
+//        System.out.println("Post to delete: " + postId);
+//        System.out.println("Post content: " + post.getContent());
 
-        // Delete all likes associated with the post
         List<Like> likes = likeService.getLikesByPostId(postId);
         for (Like like : likes) {
-            System.out.println("Deleting Like with ID: " + like.getLikeId());
+//            System.out.println("Deleting Like with ID: " + like.getLikeId());
             likeRepository.delete(like);
         }
 
         // Delete all comments associated with the post
         List<Comment> comments = commentService.getCommentsByPostId(postId);
         for (Comment comment : comments) {
-            System.out.println("Deleting Comment with ID: " + comment.getCommentId());
+//            System.out.println("Deleting Comment with ID: " + comment.getCommentId());
             commentRepository.delete(comment);
         }
 
-        // Finally, delete the post itself
         System.out.println("Deleting Post with ID: " + post.getPostId());
         postRepository.delete(post);
         postRepository.flush();  // Ensure the transaction is flushed and changes are committed

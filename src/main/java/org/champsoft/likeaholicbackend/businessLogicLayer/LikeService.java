@@ -9,8 +9,7 @@ import java.util.List;
 public interface LikeService {
 
     LikeResponseModel addLike(LikeRequestModel likeRequestModel);
-
-    void removeLike(String id);
+    void removeLike(String likeId);
     List<Like> getLikesByPostId(String postId);
     List<Like> getAllLikes();
 

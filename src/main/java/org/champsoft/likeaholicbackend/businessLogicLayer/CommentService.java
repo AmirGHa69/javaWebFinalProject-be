@@ -10,8 +10,8 @@ public interface CommentService {
 //    Comment addComment(Comment comment);
 
     CommentResponseModel addComment(CommentRequestModel commentRequestModel);
-    Comment updateComment(String id, Comment comment);
-    void deleteComment(String id);
+    Comment updateComment(String commentId, Comment comment);
+    void deleteComment(String commentId);
     List<Comment> getCommentsByPostId(String postId);
     List<Comment> getAllComments();
 }

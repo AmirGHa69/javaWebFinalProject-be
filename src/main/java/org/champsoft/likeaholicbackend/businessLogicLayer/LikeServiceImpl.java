@@ -25,22 +25,14 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public LikeResponseModel addLike(LikeRequestModel likeRequestModel) {
-        // Fetch the User entity
         User user = userRepository.findByUserId(likeRequestModel.getUserId());
-        // Fetch the Post entity
         Post post = postRepository.findByPostId(likeRequestModel.getPostId());
-        // Map the LikeRequestModel to a Like entity
+
         Like like = new Like();
         like.setUser(user);
         like.setPost(post);
-
-        // Set a non-null value for likeId
         like.setLikeId(String.valueOf(System.currentTimeMillis())); // Use current time for uniqueness
-
-        // Save the Like entity
         likeRepository.save(like);
-
-        // Map the saved Like entity to a LikeResponseModel and return it
         return likeResponseMapper.entityToResponseModel(like);
     }
 
@@ -48,8 +40,8 @@ public class LikeServiceImpl implements LikeService {
 
 
     @Override
-    public void removeLike(String id) {
-        likeRepository.deleteByLikeId(id);
+    public void removeLike(String likeId) {
+        likeRepository.deleteByLikeId(likeId);
     }
 
     @Override

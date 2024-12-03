@@ -19,14 +19,14 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public Post updatePost(@PathVariable String id, @RequestBody Post post) {
-        return postService.updatePost(id, post);
+    public Post updatePost(@PathVariable String postId, @RequestBody Post post) {
+        return postService.updatePost(postId, post);
     }
 
     @DeleteMapping("/{id}")
-    public String deletePost(@PathVariable String id) {
-        System.out.println("Long id in controller: " + id);
-        return postService.deletePost(id);
+    public String deletePost(@PathVariable String postId) {
+        System.out.println("postId in controller: " + postId);
+        return postService.deletePost(postId);
 
     }
 

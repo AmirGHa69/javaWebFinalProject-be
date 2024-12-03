@@ -43,15 +43,15 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public Comment updateComment(String id, Comment comment) {
-        Comment existingComment = commentRepository.findByCommentId(id);
+    public Comment updateComment(String commentId, Comment comment) {
+        Comment existingComment = commentRepository.findByCommentId(commentId);
         existingComment.setContent(comment.getContent());
         return commentRepository.save(existingComment);
     }
 
     @Override
-    public void deleteComment(String id) {
-        commentRepository.deleteByCommentId(id);
+    public void deleteComment(String commentId) {
+        commentRepository.deleteByCommentId(commentId);
     }
 
     @Override

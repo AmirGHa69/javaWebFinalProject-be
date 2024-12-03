@@ -20,13 +20,13 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    public Comment updateComment(@PathVariable String id, @RequestBody Comment comment) {
-        return commentService.updateComment(id, comment);
+    public Comment updateComment(@PathVariable String commentId, @RequestBody Comment comment) {
+        return commentService.updateComment(commentId, comment);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteComment(@PathVariable String id) {
-        commentService.deleteComment(id);
+    public void deleteComment(@PathVariable String commentId) {
+        commentService.deleteComment(commentId);
     }
 
     @GetMapping("/post/{postId}")

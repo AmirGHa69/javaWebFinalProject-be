@@ -19,8 +19,8 @@ public class LikeController {
     }
 
     @DeleteMapping("/{id}")
-    public void removeLike(@PathVariable String id) {
-        likeService.removeLike(id);
+    public void removeLike(@PathVariable String likeId) {
+        likeService.removeLike(likeId);
     }
 
     @GetMapping("/post/{postId}")

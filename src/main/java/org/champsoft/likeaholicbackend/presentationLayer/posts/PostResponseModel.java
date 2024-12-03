@@ -19,7 +19,7 @@ public class PostResponseModel {
     private UserResponseModel user;
     private String content;
     private String imageUrl;
-    private List<LikeResponseModel> likes; // Include likes
-    private List<CommentResponseModel> comments; // Include comments
-    private String timestamp;
+    private List<LikeResponseModel> likes;
+    private List<CommentResponseModel> comments;
+//    private String timestamp;
 }

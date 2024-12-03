@@ -10,7 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PostRequestModel {
-
     private String content;
     private String imageUrl;
     private String userId;
