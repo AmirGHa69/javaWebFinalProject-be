@@ -18,7 +18,7 @@ public class LikeController {
         return likeService.addLike(likeRequest);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{likeId}")
     public void removeLike(@PathVariable String likeId) {
         likeService.removeLike(likeId);
     }

@@ -19,12 +19,12 @@ public class CommentController {
         return commentService.addComment(commentRequestModel);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{commentId}")
     public Comment updateComment(@PathVariable String commentId, @RequestBody Comment comment) {
         return commentService.updateComment(commentId, comment);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{commentId}")
     public void deleteComment(@PathVariable String commentId) {
         commentService.deleteComment(commentId);
     }

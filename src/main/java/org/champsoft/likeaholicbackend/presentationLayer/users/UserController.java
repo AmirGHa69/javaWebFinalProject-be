@@ -20,16 +20,16 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{userId}")
     public User updateUser(@PathVariable String userId, @RequestBody User user) {
         return userService.updateUser(userId, user);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable String userId) {
         userService.deleteUser(userId);
     }
-    @GetMapping("/{id}")
+    @GetMapping("/{userId}")
     public User getUserById(@PathVariable String userId) {
         return userService.getUserById(userId);
     }

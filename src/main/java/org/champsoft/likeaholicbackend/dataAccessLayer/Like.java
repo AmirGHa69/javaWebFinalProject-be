@@ -26,7 +26,7 @@ public class Like {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "post_id",  nullable = false)
     @JsonIgnore
     private Post post;
 }

@@ -12,7 +12,7 @@ CREATE TABLE posts (
                        user_id BIGINT NOT NULL,
                        content VARCHAR(255) NOT NULL,
                        image_url VARCHAR(255),
-                       FOREIGN KEY (user_id) REFERENCES users(id)
+                       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE likes (
@@ -21,7 +21,7 @@ CREATE TABLE likes (
                        user_id BIGINT NOT NULL,
                        post_id BIGINT NOT NULL,
                        FOREIGN KEY (user_id) REFERENCES users(id),
-                       FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+                       FOREIGN KEY (post_id) REFERENCES posts(id)
 );
 
 CREATE TABLE comments (
@@ -30,6 +30,6 @@ CREATE TABLE comments (
                           user_id BIGINT NOT NULL,
                           post_id BIGINT NOT NULL,
                           content VARCHAR(255) NOT NULL,
-                          FOREIGN KEY (user_id) REFERENCES users(id),
+                          FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
                           FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
 );

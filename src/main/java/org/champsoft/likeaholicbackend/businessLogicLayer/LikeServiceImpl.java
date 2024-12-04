@@ -41,7 +41,9 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public void removeLike(String likeId) {
-        likeRepository.deleteByLikeId(likeId);
+        Like like = this.likeRepository.findLikeByLikeId(likeId);
+        System.out.println(like.getLikeId() + " : " + like.getPost().getContent());
+        this.likeRepository.delete(like);
     }
 
     @Override

@@ -21,6 +21,9 @@ public class Comment {
     @Column(nullable = false, unique = true)
     private String commentId;
 
+    @Column(name = "content", nullable = false)
+    private String content;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -30,6 +33,5 @@ public class Comment {
     @JsonIgnore
     private Post post;
 
-    @Column(name = "content", nullable = false)
-    private String content;
+
 }
