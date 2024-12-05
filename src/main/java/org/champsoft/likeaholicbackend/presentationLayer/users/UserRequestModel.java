@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserRequestModel {
-    private String userId;
+//    private String userId;
     private String userName;
     private String userEmail;
     private String userPassword;

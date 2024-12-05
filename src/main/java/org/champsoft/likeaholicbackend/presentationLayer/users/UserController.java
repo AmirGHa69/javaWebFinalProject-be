@@ -21,9 +21,17 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public User updateUser(@PathVariable String userId, @RequestBody User user) {
+    public User updateUser(@PathVariable String userId, @RequestBody UserRequestModel userRequestModel) {
+        // Convert DTO to entity
+        User user = new User();
+        user.setUserId(userId);
+        user.setUserName(userRequestModel.getUserName());
+        user.setUserEmail(userRequestModel.getUserEmail());
+        user.setUserPassword(userRequestModel.getUserPassword()); // Include password
+
         return userService.updateUser(userId, user);
     }
+
 
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable String userId) {

@@ -19,14 +19,19 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
-    public User updateUser(String userId, User user) {
+    public User updateUser(String userId, User updatedUser) {
         User existingUser = userRepository.findByUserId(userId);
-        existingUser.setUserName(user.getUserName());
-        existingUser.setUserEmail(user.getUserEmail());
-        existingUser.setUserPassword(user.getUserPassword());
+        existingUser.setUserName(updatedUser.getUserName());
+        existingUser.setUserEmail(updatedUser.getUserEmail());
+
+        // Preserve the existing password if the updated password is null or empty
+        if (updatedUser.getUserPassword() != null && !updatedUser.getUserPassword().isEmpty()) {
+            existingUser.setUserPassword(updatedUser.getUserPassword());
+        }
+
         return userRepository.save(existingUser);
     }
+
 
     @Override
     public void deleteUser(String userId) {
