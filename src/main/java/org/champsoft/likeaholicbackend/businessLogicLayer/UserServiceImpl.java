@@ -1,6 +1,5 @@
 package org.champsoft.likeaholicbackend.businessLogicLayer;
 
-import jakarta.transaction.Transactional;
 import org.champsoft.likeaholicbackend.dataAccessLayer.User;
 import org.champsoft.likeaholicbackend.dataAccessLayer.UserRepository;
 
@@ -24,14 +23,12 @@ public class UserServiceImpl implements UserService {
         existingUser.setUserName(updatedUser.getUserName());
         existingUser.setUserEmail(updatedUser.getUserEmail());
 
-        // Preserve the existing password if the updated password is null or empty
         if (updatedUser.getUserPassword() != null && !updatedUser.getUserPassword().isEmpty()) {
             existingUser.setUserPassword(updatedUser.getUserPassword());
         }
 
         return userRepository.save(existingUser);
     }
-
 
     @Override
     public void deleteUser(String userId) {

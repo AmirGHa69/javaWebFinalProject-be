@@ -22,7 +22,6 @@ public class UserController {
 
     @PutMapping("/{userId}")
     public User updateUser(@PathVariable String userId, @RequestBody UserRequestModel userRequestModel) {
-        // Convert DTO to entity
         User user = new User();
         user.setUserId(userId);
         user.setUserName(userRequestModel.getUserName());

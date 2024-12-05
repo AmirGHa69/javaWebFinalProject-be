@@ -6,6 +6,8 @@ import org.champsoft.likeaholicbackend.dataMapperLayer.PostResponseMapper;
 import org.champsoft.likeaholicbackend.presentationLayer.posts.PostRequestModel;
 import org.champsoft.likeaholicbackend.presentationLayer.posts.PostResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,16 +58,26 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public Post updatePost(String id, Post post) {
-        Post existingPost = postRepository.findByPostId(id);
-        existingPost.setContent(post.getContent());
-        existingPost.setImageUrl(post.getImageUrl());
-        return postRepository.save(existingPost);
+    public ResponseEntity<?> updatePost(String postId, PostRequestModel postRequest) {
+        Post optionalPost = postRepository.findByPostId(postId);
+        if (optionalPost != null) {
+            // Authorization check
+            if (!optionalPost.getUser().getUserId().equals(postRequest.getUserId())) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to update this post.");
+            }
+            // Update post fields
+            optionalPost.setContent(postRequest.getContent());
+            optionalPost.setImageUrl(postRequest.getImageUrl());
+            postRepository.save(optionalPost);
+
+            return ResponseEntity.ok("Post updated successfully");
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found");
     }
     @Transactional
     @Override
     public String deletePost(String postId) {
-        // Fetch the post to ensure it exists
         Post post = postRepository.findByPostId(postId);
         if (post == null) {
             return "Post with ID " + postId + " not found.";
@@ -76,17 +88,11 @@ public class PostServiceImpl implements PostService {
 //        System.out.println("Post content: " + post.getContent());
 
         List<Like> likes = likeService.getLikesByPostId(postId);
-        for (Like like : likes) {
-//            System.out.println("Deleting Like with ID: " + like.getLikeId());
-            likeRepository.delete(like);
-        }
-
-        // Delete all comments associated with the post
+        //            System.out.println("Deleting Like with ID: " + like.getLikeId());
+        likeRepository.deleteAll(likes);
         List<Comment> comments = commentService.getCommentsByPostId(postId);
-        for (Comment comment : comments) {
-//            System.out.println("Deleting Comment with ID: " + comment.getCommentId());
-            commentRepository.delete(comment);
-        }
+        //            System.out.println("Deleting Comment with ID: " + comment.getCommentId());
+        commentRepository.deleteAll(comments);
 
         System.out.println("Deleting Post with ID: " + post.getPostId());
         postRepository.delete(post);

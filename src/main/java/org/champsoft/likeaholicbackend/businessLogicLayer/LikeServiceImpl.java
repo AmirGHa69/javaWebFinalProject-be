@@ -37,8 +37,6 @@ public class LikeServiceImpl implements LikeService {
     }
 
 
-
-
     @Override
     public void removeLike(String likeId) {
         Like like = this.likeRepository.findLikeByLikeId(likeId);

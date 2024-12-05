@@ -21,5 +21,4 @@ public class PostResponseModel {
     private String imageUrl;
     private List<LikeResponseModel> likes;
     private List<CommentResponseModel> comments;
-//    private String timestamp;
 }

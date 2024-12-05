@@ -1,5 +1,6 @@
 package org.champsoft.likeaholicbackend.businessLogicLayer;
 
+import jakarta.transaction.Transactional;
 import org.champsoft.likeaholicbackend.dataAccessLayer.*;
 import org.champsoft.likeaholicbackend.dataMapperLayer.CommentResponseMapper;
 import org.champsoft.likeaholicbackend.presentationLayer.comments.CommentRequestModel;
@@ -13,30 +14,26 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentRepository commentRepository;
-
-    @Autowired private PostRepository postRepository;
-    @Autowired private UserRepository userRepository;
-    @Autowired private CommentResponseMapper commentResponseMapper;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private CommentResponseMapper commentResponseMapper;
 
     @Override
     public CommentResponseModel addComment(CommentRequestModel commentRequestModel) {
-        // Fetch the User entity
         User user = userRepository.findByUserId(commentRequestModel.getUserId());
-        // Fetch the Post entity
         Post post = postRepository.findByPostId(commentRequestModel.getPostId());
-        // Map the CommentRequestModel to a Comment entity
         Comment comment = new Comment();
         comment.setUser(user);
         comment.setPost(post);
         comment.setContent(commentRequestModel.getContent());
 
-        // Generate a unique commentId
         comment.setCommentId(String.valueOf(System.currentTimeMillis())); // Use current time for uniqueness
 
-        // Save the Comment entity
         commentRepository.save(comment);
 
-        // Map the saved Comment entity to a CommentResponseModel and return it
         return commentResponseMapper.entityToResponseModel(comment);
     }
 
@@ -50,8 +47,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public void deleteComment(String commentId) {
-        commentRepository.deleteByCommentId(commentId);
+        Comment comment = commentRepository.findByCommentId(commentId);
+        commentRepository.delete(comment);
     }
 
     @Override

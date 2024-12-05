@@ -7,8 +7,6 @@ import org.champsoft.likeaholicbackend.presentationLayer.comments.CommentRespons
 import java.util.List;
 
 public interface CommentService {
-//    Comment addComment(Comment comment);
-
     CommentResponseModel addComment(CommentRequestModel commentRequestModel);
     Comment updateComment(String commentId, Comment comment);
     void deleteComment(String commentId);
